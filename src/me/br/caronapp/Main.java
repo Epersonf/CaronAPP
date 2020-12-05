@@ -3,6 +3,8 @@ package me.br.caronapp;
 import me.br.caronapp.console.Console;
 import me.br.caronapp.threads.TimeUpdater;
 
+/* Implementado por Eperson Cardoso Mayrink Xavier Filho */
+
 public class Main {
 	private static TimeUpdater updater;
 	public static TimeUpdater getTimeUpdater() {

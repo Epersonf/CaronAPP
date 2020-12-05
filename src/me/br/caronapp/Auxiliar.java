@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import me.br.caronapp.carona.Carona;
 import me.br.caronapp.usuario.Usuario;
 
+/* Implementado por Eperson Cardoso Mayrink Xavier Filho */
+
 public class Auxiliar {
 	private static ArrayList<Carona> caronasAtivas = new ArrayList<Carona>();
 	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();

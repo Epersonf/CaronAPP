@@ -2,6 +2,8 @@ package me.br.caronapp.threads;
 
 import me.br.caronapp.Auxiliar;
 
+/* Implementado por Eperson Cardoso Mayrink Xavier Filho */
+
 public class TimeUpdater extends Thread {
 	private boolean stop;
 	
