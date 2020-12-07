@@ -10,7 +10,8 @@ import me.br.caronapp.carona.excecoes.*;
 
 public class Carona {
 	
-	public enum Estado {ABERTO, AGUARDANDO, FECHADO};
+	public enum Estado {ABERTO, AGUARDANDO, FECHADO, FINALIZADO};
+	public enum Tipo {IDA, VOLTA};
 	
 	private Usuario host;
 	private ArrayList<Usuario> guests = new ArrayList<Usuario>();
