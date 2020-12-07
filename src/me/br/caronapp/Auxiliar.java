@@ -12,6 +12,8 @@ public class Auxiliar {
 	public static ArrayList<Carona> caronasAtivas = new ArrayList<Carona>();
 	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	
+	/* Carona */
+	
 	public static void criarCarona(Carona c) {
 		caronasAtivas.add(c);
 	}
@@ -25,10 +27,31 @@ public class Auxiliar {
 		caronasAtivas.remove(id);
 	}
 	
-	public static void removerPassageiro(int userId, int caronaId) throws UsuarioNaoEncontradoException {
+	public static void removerPassageiro(String username, int caronaId) throws UsuarioNaoEncontradoException {
 		if (caronaId < 0 || caronaId >= caronasAtivas.size()) return;
-		caronasAtivas.get(caronaId).removePassageiro(userId);
+		caronasAtivas.get(caronaId).removePassageiro(username);
 	}
+	
+	/* Login e registro */
+	public static boolean logar(String username, String senha) {
+		for (Usuario u : usuarios) 
+			if (u.podeLogar(username, senha)) return true;
+		return false;
+	}
+	
+	public static boolean register(String username, String name, String cpf, String senha) {
+		if (existe(username)) return false;
+		usuarios.add(new Usuario(username, name, cpf, senha));
+		return true;
+	}
+	
+	public static boolean existe(String username) {
+		for (Usuario u : usuarios)
+			if (username.equalsIgnoreCase(u.getUsername())) return true;
+		return false;
+	}
+	
+	/* Atualizacao de tempo */
 	
 	public static void updateTime() {
 		for (Carona c : caronasAtivas) {

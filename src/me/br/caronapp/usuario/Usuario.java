@@ -7,16 +7,11 @@ import java.io.Serializable;
 public class Usuario implements Comparable<Usuario>, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
 	private String name;
 	private String username;
 	private String cpf;
 	private String senha;
 	private boolean adm;
-	
-	public int getId() {
-		return id;
-	}
 	
 	public String getUsername() {
 		return username;
@@ -51,20 +46,24 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		return adm;
 	}
 
-	public Usuario(int id, String username, String name, String cpf, String senha) {
-		this.id = id;
+	public Usuario(String username, String name, String cpf, String senha) {
 		this.username = username;
 		this.name = name;
 		this.cpf = cpf;
 		this.senha = senha;
 	}
 	
-	public boolean podeLogar(String senha) {
+	public boolean podeLogar(String username, String senha) {
+		if (!username.equalsIgnoreCase(this.username)) return false;
 		return this.senha.equals(senha);
 	}
 	
 	@Override
 	public int compareTo(Usuario o) {
-		return this.getId() - o.getId();
+		return o.getUsername().compareTo(this.getUsername());
+	}
+	
+	public boolean equals(Usuario o) {
+		return o.getUsername().equalsIgnoreCase(o.getName());
 	}
 }
