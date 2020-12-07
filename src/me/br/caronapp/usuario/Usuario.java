@@ -1,9 +1,12 @@
 package me.br.caronapp.usuario;
 
+import java.io.Serializable;
+
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
 
-public class Usuario implements Comparable<Usuario> {
-
+public class Usuario implements Comparable<Usuario>, Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String name;
 	private String username;
