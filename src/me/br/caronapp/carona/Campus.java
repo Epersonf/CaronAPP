@@ -8,7 +8,7 @@ public class Campus extends Posicao {
 
 	private PontosDeEncontro pontoDeEncontro;
 	
-	public Campus(PontosDeEncontro pontoDeEncontro, float latitude, float longitude) {
+	public Campus(PontosDeEncontro pontoDeEncontro) {
 		super(pontoDeEncontro.getLatitude(), pontoDeEncontro.getLongitude());
 		this.pontoDeEncontro = pontoDeEncontro;
 	}
