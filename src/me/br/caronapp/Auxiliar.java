@@ -9,8 +9,8 @@ import me.br.caronapp.usuario.Usuario;
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
 
 public class Auxiliar {
-	private static ArrayList<Carona> caronasAtivas = new ArrayList<Carona>();
-	private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	public static ArrayList<Carona> caronasAtivas = new ArrayList<Carona>();
+	public static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 	
 	public static void criarCarona(Carona c) {
 		caronasAtivas.add(c);

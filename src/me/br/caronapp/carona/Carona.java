@@ -10,14 +10,19 @@ import me.br.caronapp.carona.excecoes.*;
 
 public class Carona {
 	
+	/*
+	 * ABERTO: Aceita guests.
+	 * AGUARDANDO, FECHADO e FINALIZADO: Não aceita guests.
+	 */
+	
 	public enum Estado {ABERTO, AGUARDANDO, FECHADO, FINALIZADO};
-	public enum Tipo {IDA, VOLTA};
 	
 	private Usuario host;
 	private ArrayList<Usuario> guests = new ArrayList<Usuario>();
 	private int maximoGuests;
 	private Data dataHora;
 	private Rota rota;
+	private Estado estado;
 	
 	public Carona(Usuario host, int maximoGuests, Data dataHora, Rota rota) {
 		super();
@@ -25,6 +30,7 @@ public class Carona {
 		this.maximoGuests = maximoGuests;
 		this.dataHora = dataHora;
 		this.rota = rota;
+		this.estado = Estado.ABERTO;
 	}
 	
 	public void adicionaPassageiro(Usuario user) throws VagasExcedidasException {
@@ -45,10 +51,6 @@ public class Carona {
 	}
 	
 	public void atualiza() {
-		//TODO implementar método.
-	}
-	
-	public void finaliza() {
 		//TODO: implementar método.
 	}
 	
@@ -84,6 +86,16 @@ public class Carona {
 
 	public void setRota(Rota rota) {
 		this.rota = rota;
+	}
+	
+	public Estado getEstado() {
+		return estado;
+	}
+	
+	public void setEstado(Estado estado) {
+		
+		//TODO: alterar restrições.
+		this.estado = estado;
 	}
 	
 }

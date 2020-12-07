@@ -1,6 +1,7 @@
 package me.br.caronapp;
 
 import me.br.caronapp.console.Console;
+import me.br.caronapp.storage.*;
 import me.br.caronapp.threads.TimeUpdater;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
@@ -13,6 +14,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		Console console = new Console();
+		Storable storage = new StorageManager();
+		Auxiliar.usuarios = storage.carregaUsuarios();
 		
 		updater = new TimeUpdater();
 		updater.start();
@@ -22,5 +25,6 @@ public class Main {
 		}
 		
 		updater.stopThread();
+		storage.salvaUsuarios(Auxiliar.usuarios);
 	}
 }

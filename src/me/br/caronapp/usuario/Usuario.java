@@ -12,6 +12,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	private String username;
 	private String cpf;
 	private String senha;
+	private boolean adm;
 	
 	public int getId() {
 		return id;
@@ -41,8 +42,13 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	public String getSenha() {
 		return senha;
 	}
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public boolean isAdm() {
+		return adm;
 	}
 
 	public Usuario(int id, String username, String name, String cpf, String senha) {

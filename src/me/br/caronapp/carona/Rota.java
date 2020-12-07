@@ -6,20 +6,16 @@ package me.br.caronapp.carona;
 
 public class Rota {
 
+	public enum Sentido {IDA, VOLTA};
+	
 	private Posicao origem;
 	private Posicao destino;
-	private int sentido;		// 0: em direção à UFF, 1: saindo da UFF
+	private Sentido sentido;
 	
-	public Rota(Posicao origem, Campus destino) {
+	public Rota(Posicao origem, Posicao destino) {
 		this.origem = origem;
 		this.destino = destino;
-		this.sentido = 0;
-	}
-	
-	public Rota(Campus origem, Posicao destino) {
-		this.origem = origem;
-		this.destino = destino;
-		this.sentido = 1;
+		this.sentido = (destino instanceof Campus) ? Sentido.IDA : Sentido.VOLTA;
 	}
 
 	public Posicao getOrigem() {
@@ -30,7 +26,7 @@ public class Rota {
 		return destino;
 	}
 	
-	public int getSentido() {
+	public Sentido getSentido() {
 		return sentido;
 	}
 	

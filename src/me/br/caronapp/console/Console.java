@@ -2,16 +2,20 @@ package me.br.caronapp.console;
 
 import java.util.Scanner;
 
+import me.br.caronapp.usuario.Usuario;
+
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
 
 public class Console {
 	
 	Scanner scan;
 	int stage = 0;
+	Usuario usuario;
 	
 	public Console() {
 		scan = new Scanner(System.in);
 		stage = 0;
+		usuario = null;
 	}
 	
 	public boolean draw() {
