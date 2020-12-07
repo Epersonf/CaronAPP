@@ -3,6 +3,7 @@ package me.br.caronapp;
 import java.util.ArrayList;
 
 import me.br.caronapp.carona.Carona;
+import me.br.caronapp.carona.excecoes.UsuarioNaoEncontradoException;
 import me.br.caronapp.usuario.Usuario;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
@@ -24,8 +25,9 @@ public class Auxiliar {
 		caronasAtivas.remove(id);
 	}
 	
-	public static void removerPassageiro(int userId, int caronaId) {
-		
+	public static void removerPassageiro(int userId, int caronaId) throws UsuarioNaoEncontradoException {
+		if (caronaId < 0 || caronaId >= caronasAtivas.size()) return;
+		caronasAtivas.get(caronaId).removePassageiro(userId);
 	}
 	
 	public static void updateTime() {
