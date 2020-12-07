@@ -13,7 +13,6 @@ public class TimeUpdater extends Thread {
 	
 	public void run() {
 		try {
-			System.out.println("Executando...");
 			Thread.sleep(500);
 			Auxiliar.updateTime();
 			if (!stop) run();

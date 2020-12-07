@@ -38,6 +38,11 @@ public class Carona {
 		if (!guests.remove(user)) throw new UsuarioNaoEncontradoException();
 	}
 	
+	public void removePassageiro(int id) throws UsuarioNaoEncontradoException {
+		for (Usuario u : guests) if (u.getId() == id) {removePassageiro(u);return;}
+		throw new UsuarioNaoEncontradoException();
+	}
+	
 	public void atualiza() {
 		//TODO implementar método.
 	}

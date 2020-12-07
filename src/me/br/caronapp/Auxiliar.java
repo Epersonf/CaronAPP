@@ -30,7 +30,7 @@ public class Auxiliar {
 	
 	public static void updateTime() {
 		for (Carona c : caronasAtivas) {
-			//c.updateTime();
+			c.atualiza();
 		}
 	}
 }
