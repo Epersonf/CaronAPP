@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		Console console = new Console();
 		Storable storage = new StorageManager();
-		Auxiliar.usuarios = storage.carregaUsuarios();
+		storage.carrega(Auxiliar.usuarios, Auxiliar.caronasAtivas);
 		
 		updater = new TimeUpdater();
 		updater.start();
@@ -25,6 +25,6 @@ public class Main {
 		}
 		
 		updater.stopThread();
-		storage.salvaUsuarios(Auxiliar.usuarios);
+		storage.salva(Auxiliar.usuarios, Auxiliar.caronasAtivas);
 	}
 }

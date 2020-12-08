@@ -1,5 +1,6 @@
 package me.br.caronapp.carona;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import me.br.caronapp.usuario.Usuario;
 import me.br.caronapp.carona.excecoes.*;
@@ -8,13 +9,16 @@ import me.br.caronapp.carona.excecoes.*;
  * Author: Sérgio Ricardo
  */
 
-public class Carona {
+public class Carona implements Serializable {
 	
-	/*
-	 * ABERTO: Aceita guests.
-	 * AGUARDANDO, FECHADO e FINALIZADO: Não aceita guests.
+	 // ABERTO: Aceita guests.
+	 // AGUARDANDO, FECHADO e FINALIZADO: Não aceita guests.
+	
+	/**
+	 * 
 	 */
-	
+	private static final long serialVersionUID = 1L;
+
 	public enum Estado {ABERTO, AGUARDANDO, FECHADO, FINALIZADO};
 	
 	private Usuario host;
