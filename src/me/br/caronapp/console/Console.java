@@ -3,7 +3,9 @@ package me.br.caronapp.console;
 import java.util.Scanner;
 
 import me.br.caronapp.Auxiliar;
+import me.br.caronapp.carona.Campus;
 import me.br.caronapp.carona.Carona;
+import me.br.caronapp.carona.PontosDeEncontro;
 import me.br.caronapp.usuario.Usuario;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
@@ -20,6 +22,7 @@ public class Console {
 		LISTAR_CARONAS,
 		HOST_CARONA,
 		ENTRAR_CARONA,
+		DESLOGAR,
 		/* ADMINISTRADOR */		
 		;
 	}
@@ -41,7 +44,7 @@ public class Console {
 		
 		switch (stage) {
 		case LOGIN_REGISTRO:
-			System.out.println("Decida o que fazer:\n1 - ");
+			System.out.println("Decida o que fazer:\n1 - Login\n2 - Registrar");
 			i = scan.nextInt();
 			stage = (i == 1) ? Stage.LOGIN : Stage.REGISTRO;
 			break;
@@ -68,8 +71,13 @@ public class Console {
 			stage = Stage.LOBBY;
 			break;
 		case HOST_CARONA:
+			
 			break;
 		case ENTRAR_CARONA:
+			break;
+		case DESLOGAR:
+			usuario = null;
+			stage = Stage.LOGIN_REGISTRO;
 			break;
 		/*  */
 		default:
@@ -96,5 +104,4 @@ public class Console {
 		}
 		return user;
 	}
-	
 }
