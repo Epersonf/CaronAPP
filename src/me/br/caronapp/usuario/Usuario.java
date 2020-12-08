@@ -11,7 +11,34 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	private String username;
 	private String cpf;
 	private String senha;
+	private int stars;
+	private int avaliacoes;
 	private boolean adm;
+
+	public Usuario(String username, String name, String cpf, String senha) {
+		this.username = username;
+		this.name = name;
+		this.cpf = cpf;
+		this.senha = senha;
+		this.stars = 10;
+		this.avaliacoes = 0;
+	}
+	
+	public boolean podeLogar(String username, String senha) {
+		if (!username.equalsIgnoreCase(this.username)) return false;
+		return this.senha.equals(senha);
+	}
+	
+	@Override
+	public int compareTo(Usuario o) {
+		return o.getUsername().compareTo(this.getUsername());
+	}
+	
+	public boolean equals(Usuario o) {
+		return o.getUsername().equalsIgnoreCase(o.getName());
+	}
+	
+	/* GETTERS AND SETTERS */
 	
 	public String getUsername() {
 		return username;
@@ -45,25 +72,12 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	public boolean isAdm() {
 		return adm;
 	}
-
-	public Usuario(String username, String name, String cpf, String senha) {
-		this.username = username;
-		this.name = name;
-		this.cpf = cpf;
-		this.senha = senha;
-	}
 	
-	public boolean podeLogar(String username, String senha) {
-		if (!username.equalsIgnoreCase(this.username)) return false;
-		return this.senha.equals(senha);
+	public int getStars() {
+		return this.stars;
 	}
-	
-	@Override
-	public int compareTo(Usuario o) {
-		return o.getUsername().compareTo(this.getUsername());
-	}
-	
-	public boolean equals(Usuario o) {
-		return o.getUsername().equalsIgnoreCase(o.getName());
+	public void giveStars(int amt) {
+		this.avaliacoes++;
+		this.stars = ((this.stars * (this.avaliacoes - 1)) + amt)/(this.avaliacoes);
 	}
 }

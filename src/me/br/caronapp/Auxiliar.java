@@ -33,16 +33,17 @@ public class Auxiliar {
 	}
 	
 	/* Login e registro */
-	public static boolean logar(String username, String senha) {
+	public static Usuario logar(String username, String senha) {
 		for (Usuario u : usuarios) 
-			if (u.podeLogar(username, senha)) return true;
-		return false;
+			if (u.podeLogar(username, senha)) return u;
+		return null;
 	}
 	
-	public static boolean register(String username, String name, String cpf, String senha) {
-		if (existe(username)) return false;
-		usuarios.add(new Usuario(username, name, cpf, senha));
-		return true;
+	public static Usuario register(String username, String name, String cpf, String senha) {
+		if (existe(username)) return null;
+		Usuario u = new Usuario(username, name, cpf, senha);
+		usuarios.add(u);
+		return u;
 	}
 	
 	public static boolean existe(String username) {
