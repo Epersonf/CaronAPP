@@ -59,12 +59,13 @@ public class Console {
 			break;
 		/*COMANDOS LOGADO*/
 		case LOBBY:
+			System.out.println("1 - Listar caronas\n2 - Hostar carona\n3 - Pegar carona");
 			break;
 		case LISTAR_CARONAS:
 			for (i = 0; i < Auxiliar.caronasAtivas.size(); i++) {
 				System.out.println(Auxiliar.caronasAtivas.get(i).getHost().getName());
 			}
-			System.out.println("Digite o ID da carona:");
+			stage = Stage.LOBBY;
 			break;
 		case HOST_CARONA:
 			break;
