@@ -43,7 +43,9 @@ public class Console {
 		this.logout();
 	}
 	
-	public boolean draw() {		
+	public boolean draw() {
+		if (usuario != null)
+			System.out.println("-----> Usuario: " + this.usuario.getName());
 		switch (stage) {
 		case LOGIN_REGISTRO:
 			LoginRegistro.loginRegistro(this);

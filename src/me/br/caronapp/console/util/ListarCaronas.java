@@ -13,9 +13,14 @@ public class ListarCaronas {
 	}
 	
 	public static void mostrarCaronas(Sentido sentido) {
+		boolean printou = false;
 		for (int i = 0; i < Auxiliar.caronasAtivas.size(); i++) {
 			if (Auxiliar.caronasAtivas.get(i).getRota().getSentido() != sentido) continue;
+			printou = true;
 			System.out.println(Auxiliar.caronasAtivas.get(i).getHost().getName());
 		}
+
+		if (!printou)
+			System.out.println("Sem caronas ativas no momento...");
 	}
 }
