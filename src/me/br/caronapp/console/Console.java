@@ -2,11 +2,6 @@ package me.br.caronapp.console;
 
 import java.util.Scanner;
 
-import me.br.caronapp.Auxiliar;
-import me.br.caronapp.carona.Campus;
-import me.br.caronapp.carona.Carona;
-import me.br.caronapp.carona.PontosDeEncontro;
-import me.br.caronapp.carona.Rota.Sentido;
 import me.br.caronapp.console.util.HostJoin;
 import me.br.caronapp.console.util.ListarCaronas;
 import me.br.caronapp.console.util.Lobby;
