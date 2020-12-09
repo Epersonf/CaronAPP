@@ -6,11 +6,14 @@ import me.br.caronapp.console.Console;
 
 public class HostJoin {
 
-	public static void draw(Console console) {
+	public static void host(Console console) {
 		
 	}
 	
-	
+	public static void join(Console console) {
+		
+	}
+		
 	public Campus selecionarCampus(Console console) {
 		try {
 			for (int i = 0; i < PontosDeEncontro.values().length; i++) {

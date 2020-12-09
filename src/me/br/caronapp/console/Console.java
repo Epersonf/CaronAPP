@@ -7,6 +7,7 @@ import me.br.caronapp.carona.Campus;
 import me.br.caronapp.carona.Carona;
 import me.br.caronapp.carona.PontosDeEncontro;
 import me.br.caronapp.carona.Rota.Sentido;
+import me.br.caronapp.console.util.HostJoin;
 import me.br.caronapp.console.util.ListarCaronas;
 import me.br.caronapp.console.util.Lobby;
 import me.br.caronapp.console.util.LoginRegistro;
@@ -27,8 +28,10 @@ public class Console {
 		HOST_CARONA,
 		ENTRAR_CARONA,
 		DESLOGAR,
-		/* ADMINISTRADOR */		
-		;
+		/* ADMINISTRADOR */
+		
+		/* OUTROS */
+		HALT;
 	}
 	
 	private Scanner scan;
@@ -37,8 +40,7 @@ public class Console {
 	
 	public Console() {
 		scan = new Scanner(System.in);
-		stage = Stage.LOGIN_REGISTRO;
-		usuario = null;
+		this.logout();
 	}
 	
 	public boolean draw() {		
@@ -60,18 +62,19 @@ public class Console {
 			ListarCaronas.draw(this);
 			break;
 		case HOST_CARONA:
+			HostJoin.host(this);
 			break;
 		case ENTRAR_CARONA:
+			HostJoin.join(this);
 			break;
 		case DESLOGAR:
-			usuario = null;
-			stage = Stage.LOGIN_REGISTRO;
+			this.logout();
 			break;
-		/*  */
+		/* OUTROS */
 		default:
 			System.out.println("Finalizando console...");
 			scan.close();
-			break;
+			return false;
 		}
 		
 		
@@ -92,5 +95,10 @@ public class Console {
 	
 	public boolean isAdm() {
 		return usuario.isAdm();
+	}
+	
+	public void logout() {
+		this.setUser(null);
+		this.setStage(Stage.LOGIN_REGISTRO);
 	}
 }
