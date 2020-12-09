@@ -5,7 +5,7 @@ import me.br.caronapp.console.Console.Stage;
 
 public class Lobby {
 	public static void draw(Console console) {
-		System.out.println("1 - Listar caronas\n2 - Host carona\n3 - Entrar carona\n4 - Deslogar\n5 - Halt");
+		System.out.println("1 - Listar caronas\n2 - Host carona\n3 - Entrar carona\n4 - Deslogar\n5 - Ver minhas corridas\n6 - Halt");
 		int next = console.getScanner().nextInt();
 		switch (next) {
 			case 1:
@@ -19,6 +19,9 @@ public class Lobby {
 				break;
 			case 4:
 				console.setStage(Stage.DESLOGAR);
+				break;
+			case 5:
+				console.setStage(Stage.VER_CORRIDAS);
 				break;
 			default:
 				console.setStage(Stage.HALT);

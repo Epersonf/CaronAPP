@@ -22,6 +22,7 @@ public class Console {
 		LISTAR_CARONAS,
 		HOST_CARONA,
 		ENTRAR_CARONA,
+		VER_CORRIDAS,
 		DESLOGAR,
 		/* ADMINISTRADOR */
 		
