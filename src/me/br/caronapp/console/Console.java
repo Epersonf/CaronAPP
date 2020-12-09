@@ -6,6 +6,7 @@ import me.br.caronapp.Auxiliar;
 import me.br.caronapp.carona.Campus;
 import me.br.caronapp.carona.Carona;
 import me.br.caronapp.carona.PontosDeEncontro;
+import me.br.caronapp.carona.Rota.Sentido;
 import me.br.caronapp.usuario.Usuario;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
@@ -65,9 +66,8 @@ public class Console {
 			System.out.println("1 - Listar caronas\n2 - Hostar carona\n3 - Pegar carona");
 			break;
 		case LISTAR_CARONAS:
-			for (i = 0; i < Auxiliar.caronasAtivas.size(); i++) {
-				System.out.println(Auxiliar.caronasAtivas.get(i).getHost().getName());
-			}
+			System.out.println("Deseja ir ou voltar? (1 - ir / 2 - voltar)");
+			mostrarCaronas((scan.nextInt() == 1) ? Sentido.IDA : Sentido.VOLTA);
 			stage = Stage.LOBBY;
 			break;
 		case HOST_CARONA:
@@ -103,5 +103,25 @@ public class Console {
 			user[3] = scan.next();
 		}
 		return user;
+	}
+	
+	public Campus selecionarCampus() {
+		try {
+			for (int i = 0; i < PontosDeEncontro.values().length; i++) {
+				System.out.println(i + " - " + PontosDeEncontro.values()[i].getNome());
+			}
+			System.out.println("-----------\nDigite o id nome do campus:");
+			return new Campus(PontosDeEncontro.values()[scan.nextInt()]);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Id invalido...");
+			return null;
+		}
+	}
+	
+	public void mostrarCaronas(Sentido sentido) {
+		for (int i = 0; i < Auxiliar.caronasAtivas.size(); i++) {
+			if (Auxiliar.caronasAtivas.get(i).getRota().getSentido() != sentido) continue;
+			System.out.println(Auxiliar.caronasAtivas.get(i).getHost().getName());
+		}
 	}
 }
