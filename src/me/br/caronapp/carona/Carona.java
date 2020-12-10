@@ -2,6 +2,8 @@ package me.br.caronapp.carona;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import me.br.caronapp.usuario.Usuario;
 import me.br.caronapp.carona.excecoes.*;
 
@@ -24,11 +26,11 @@ public class Carona implements Serializable {
 	private Usuario host;
 	private ArrayList<Usuario> guests = new ArrayList<Usuario>();
 	private int maximoGuests;
-	private Data dataHora;
+	private Calendar dataHora;
 	private Rota rota;
 	private Estado estado;
 	
-	public Carona(Usuario host, int maximoGuests, Data dataHora, Rota rota) {
+	public Carona(Usuario host, int maximoGuests, Calendar dataHora, Rota rota) {
 		super();
 		this.host = host;
 		this.maximoGuests = maximoGuests;
@@ -76,11 +78,11 @@ public class Carona implements Serializable {
 		this.maximoGuests = maximoGuests;
 	}
 
-	public Data getDataHora() {
+	public Calendar getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(Data dataHora) {
+	public void setDataHora(Calendar dataHora) {
 		this.dataHora = dataHora;
 	}
 

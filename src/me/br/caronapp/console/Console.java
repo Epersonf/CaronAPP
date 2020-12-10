@@ -1,9 +1,12 @@
 package me.br.caronapp.console;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 import me.br.caronapp.Auxiliar;
+import me.br.caronapp.carona.Campus;
 import me.br.caronapp.carona.Carona;
+import me.br.caronapp.carona.PontosDeEncontro;
 import me.br.caronapp.usuario.Usuario;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
@@ -68,6 +71,23 @@ public class Console {
 			stage = Stage.LOBBY;
 			break;
 		case HOST_CARONA:
+			int sentido;
+			int numero;
+			int idCampus;
+			String nomeDaRua;
+			
+			Calendar calendar = Calendar.getInstance();
+			System.out.println("Insira a data e a hora da carona que deseja criar (YYYY MM DD hh mm):");
+			calendar.set(scan.nextInt(), scan.nextInt(), scan.nextInt(), scan.nextInt(), scan.nextInt(), 00);
+			System.out.println("1 - Sentido UFF\n2 - Saindo da UFF");
+			do { sentido = scan.nextInt(); } while (sentido != 1 && sentido != 2);
+			System.out.println("Escolha o local de " + ((sentido == 1) ? "destino:" : "partida:"));
+			for (int j = 0; j<PontosDeEncontro.values().length; j++){
+	            System.out.println(j + " - " + PontosDeEncontro.values()[j]);
+	        }
+
+			Auxiliar.criarCarona(new Carona(usuario, 0, calendar, null));
+			
 			break;
 		case ENTRAR_CARONA:
 			break;
