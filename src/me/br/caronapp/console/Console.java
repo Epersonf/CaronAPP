@@ -3,10 +3,10 @@ package me.br.caronapp.console;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import me.br.caronapp.Auxiliar;
-import me.br.caronapp.carona.Campus;
-import me.br.caronapp.carona.Carona;
-import me.br.caronapp.carona.PontosDeEncontro;
+import me.br.caronapp.console.util.HostJoin;
+import me.br.caronapp.console.util.ListarCaronas;
+import me.br.caronapp.console.util.Lobby;
+import me.br.caronapp.console.util.LoginRegistro;
 import me.br.caronapp.usuario.Usuario;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
@@ -23,98 +23,85 @@ public class Console {
 		LISTAR_CARONAS,
 		HOST_CARONA,
 		ENTRAR_CARONA,
-		/* ADMINISTRADOR */		
-		;
+		VER_CORRIDAS,
+		DESLOGAR,
+		/* ADMINISTRADOR */
+		
+		/* OUTROS */
+		HALT;
 	}
 	
-	Scanner scan;
-	Stage stage;
-	Usuario usuario;
+	private Scanner scan;
+	private Stage stage;
+	private Usuario usuario;
 	
 	public Console() {
 		scan = new Scanner(System.in);
-		stage = Stage.LOGIN_REGISTRO;
-		usuario = null;
+		this.logout();
 	}
 	
 	public boolean draw() {
-		String[] parameters;
-		Usuario user;
-		int i;
-		
+		if (usuario != null)
+			System.out.println("-----> Usuario: " + this.usuario.getName());
 		switch (stage) {
 		case LOGIN_REGISTRO:
-			System.out.println("Decida o que fazer:\n1 - ");
-			i = scan.nextInt();
-			stage = (i == 1) ? Stage.LOGIN : Stage.REGISTRO;
+			LoginRegistro.loginRegistro(this);
 			break;
 		case LOGIN:
-			parameters = usernamePassword(false);
-			user = Auxiliar.logar(parameters[0], parameters[1]);
-			if (user == null) {stage = Stage.LOGIN_REGISTRO;break;}
-			stage = Stage.LOBBY;
+			LoginRegistro.login(this);
 			break;
 		case REGISTRO:
-			parameters = usernamePassword(true);
-			user = Auxiliar.register(parameters[0], parameters[2], parameters[3], parameters[1]);
-			if (user == null) {stage = Stage.LOGIN_REGISTRO;break;}
-			stage = Stage.LOBBY;
+			LoginRegistro.registro(this);
 			break;
 		/*COMANDOS LOGADO*/
 		case LOBBY:
-			System.out.println("1 - Listar caronas\n2 - Hostar carona\n3 - Pegar carona");
+			Lobby.draw(this);
 			break;
 		case LISTAR_CARONAS:
-			for (i = 0; i < Auxiliar.caronasAtivas.size(); i++) {
-				System.out.println(Auxiliar.caronasAtivas.get(i).getHost().getName());
-			}
-			stage = Stage.LOBBY;
+			ListarCaronas.draw(this);
 			break;
 		case HOST_CARONA:
-			int sentido;
-			int numero;
-			int idCampus;
-			String nomeDaRua;
-			
-			Calendar calendar = Calendar.getInstance();
-			System.out.println("Insira a data e a hora da carona que deseja criar (YYYY MM DD hh mm):");
-			calendar.set(scan.nextInt(), scan.nextInt(), scan.nextInt(), scan.nextInt(), scan.nextInt(), 00);
-			System.out.println("1 - Sentido UFF\n2 - Saindo da UFF");
-			do { sentido = scan.nextInt(); } while (sentido != 1 && sentido != 2);
-			System.out.println("Escolha o local de " + ((sentido == 1) ? "destino:" : "partida:"));
-			for (int j = 0; j<PontosDeEncontro.values().length; j++){
-	            System.out.println(j + " - " + PontosDeEncontro.values()[j]);
-	        }
-
-			Auxiliar.criarCarona(new Carona(usuario, 0, calendar, null));
-			
+			HostJoin.host(this);
 			break;
 		case ENTRAR_CARONA:
+			HostJoin.join(this);
 			break;
-		/*  */
+		case DESLOGAR:
+			this.logout();
+			break;
+		/* OUTROS */
 		default:
 			System.out.println("Finalizando console...");
 			scan.close();
-			break;
+			return false;
 		}
 		
 		
 		return true;
 	}
 	
-	public String[] usernamePassword(boolean register) {
-		String[] user = new String[(!register) ? 2 : 4];
-		System.out.println("Digite seu usuario: ");
-		user[0] = scan.next();
-		System.out.println("Digite sua senha: ");
-		user[1] = scan.next();
-		if (register) {
-			System.out.println("Digite seu nome: ");
-			user[2] = scan.next();
-			System.out.println("Digite seu CPF: ");
-			user[3] = scan.next();
-		}
-		return user;
+	public Scanner getScanner() {
+		return this.scan;
 	}
 	
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+	
+	public Usuario getUser() {
+		return usuario;
+	}
+	
+	public void setUser(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public boolean isAdm() {
+		return usuario.isAdm();
+	}
+	
+	public void logout() {
+		this.setUser(null);
+		this.setStage(Stage.LOGIN_REGISTRO);
+	}
 }
