@@ -1,6 +1,9 @@
 package me.br.caronapp.usuario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import me.br.caronapp.carona.Carona;
 
 /* Implementado por Eperson Cardoso Mayrink Xavier Filho */
 
@@ -14,6 +17,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	private int stars;
 	private int avaliacoes;
 	private boolean adm;
+	private ArrayList<Carona> caronas;
 
 	public Usuario(String username, String name, String cpf, String senha) {
 		this.username = username;
@@ -22,6 +26,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		this.senha = senha;
 		this.stars = 10;
 		this.avaliacoes = 0;
+		this.caronas = new ArrayList<Carona>();
 	}
 	
 	public boolean podeLogar(String username, String senha) {
@@ -77,7 +82,17 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		return this.stars;
 	}
 	public void giveStars(int amt) {
+		if (amt < 0 || amt > 5) return;
 		this.avaliacoes++;
 		this.stars = ((this.stars * (this.avaliacoes - 1)) + amt)/(this.avaliacoes);
+	}
+	
+	public void addCarona(Carona c) {
+		if (!caronas.contains(c)) return;
+		caronas.add(c);
+	}
+	
+	public  void removeCarona(Carona c) {
+		caronas.remove(c);
 	}
 }
