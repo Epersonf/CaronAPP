@@ -3,6 +3,8 @@ package me.br.caronapp.console.util;
 import me.br.caronapp.console.Console;
 import me.br.caronapp.console.Console.Stage;
 
+/* Implementado por Eperson Cardoso Mayrink Xavier Filho */
+
 public class Lobby {
 	public static void draw(Console console) {
 		System.out.println("1 - Listar caronas\n2 - Host carona\n3 - Entrar carona\n4 - Deslogar\n5 - Ver minhas corridas\n6 - Halt");

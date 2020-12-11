@@ -5,6 +5,8 @@ import me.br.caronapp.console.Console;
 import me.br.caronapp.console.Console.Stage;
 import me.br.caronapp.usuario.Usuario;
 
+/* Implementado por Eperson Cardoso Mayrink Xavier Filho */
+
 public class LoginRegistro {
 	public static void loginRegistro(Console console) {
 		System.out.println("Decida o que fazer:\n1 - Login\n2 - Registrar");
