@@ -1,6 +1,5 @@
 package me.br.caronapp.console;
 
-import java.util.Calendar;
 import java.util.Scanner;
 
 import me.br.caronapp.console.util.HostJoin;

@@ -18,47 +18,53 @@ import me.br.caronapp.console.Console.Stage;
 public class HostJoin {
 
 	public static void host(Console console) {
-		int sentido;
-		int numeroDePassageiros;
+		int sentido = 0;
+		int numeroDePassageiros = 0;
 		Campus campus;
 		Posicao posicao;
 		Calendar calendar = Calendar.getInstance();
 		
-		System.out.println("Insira a quantidade de passageiros:");
 		do {
-			numeroDePassageiros = console.getScanner().nextInt();
-			if (numeroDePassageiros < 1 || numeroDePassageiros > 4) System.out.println("Quantidade inválida.");
+			System.out.println("Insira a quantidade de passageiros:");
+			numeroDePassageiros = definirPassageiros(console);
 		} while (numeroDePassageiros < 1 || numeroDePassageiros > 4);
 		
-		System.out.println("Insira a data e a hora da carona que deseja criar (YYYY MM DD hh mm):");
-		calendar.set(console.getScanner().nextInt(), 
-					console.getScanner().nextInt()-1, 
-					console.getScanner().nextInt(), 
-					console.getScanner().nextInt(), 
-					console.getScanner().nextInt(), 
-					00);
+		do {
+			System.out.println("Insira a data e a hora da carona que deseja criar (YYYY MM DD hh mm):");
+			calendar = definirData(console);
+		} while (calendar == null);
 		
-		System.out.println("1 - Sentido UFF\n2 - Saindo da UFF");
-		do { 
-			sentido = console.getScanner().nextInt(); 
-			if (sentido != 1 && sentido != 2) 
-				System.out.println("Sentido inválido.");
+		do {
+			System.out.println("1 - Sentido UFF\n2 - Saindo da UFF");
+			sentido = selecionarSentido(console);
 		} while (sentido != 1 && sentido != 2);
 		
-		System.out.println("Escolha o local de " + ((sentido == 1) ? "destino:" : "partida:"));
-		campus = selecionarCampus(console);
+		do {
+			System.out.println("Escolha o local de " + ((sentido == 1) ? "destino:" : "partida:"));
+			campus = selecionarCampus(console);
+		} while (campus == null);
 		
-		System.out.println("Entre com as informações do local de " + ((sentido == 1) ? "partida:" : "destino:"));
-		posicao = definirPosicao(console);
+		do {
+			System.out.println("Entre com as informações do local de " + ((sentido == 1) ? "partida:" : "destino:"));
+			posicao = definirPosicao(console);
+		} while (posicao == null);
 		
 		Rota rota = (sentido == 1) ? new Rota(posicao, campus) : new Rota(campus, posicao);
-		
+	
 		Auxiliar.criarCarona(new Carona(console.getUser(), numeroDePassageiros, calendar, rota));
+		
 		console.setStage(Stage.LOBBY);
 	}
 	
 	public static void join(Console console) {
-		
+		Carona carona;
+		if(ListarCaronas.draw(console)) {
+			do {
+				System.out.println("Entre com a ID da carona que deseja participar:");
+				carona = selecionarCarona(console);
+			} while (carona == null);
+		}
+		console.setStage(Stage.LOBBY);
 	}
 		
 	public static Campus selecionarCampus(Console console) {
@@ -70,22 +76,97 @@ public class HostJoin {
 			return new Campus(PontosDeEncontro.values()[console.getScanner().nextInt()]);
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("Id invalido...");
+			console.setStage(Stage.LOBBY);
+			console.getScanner().next();
 			return null;
 		}
 	}
 	
 	public static Posicao definirPosicao(Console console) {
+		double latitude;
+		double longitude;
+		String nome;
+		int numero;
+		String cep;
+		
+		try {
 		System.out.println("Latitude: ");
-		float latitude = console.getScanner().nextFloat();
+			latitude = console.getScanner().nextDouble();
 		System.out.println("Longitude: ");
-		float longitude = console.getScanner().nextFloat();
+			longitude = console.getScanner().nextDouble();
 		System.out.println("Nome da Rua: ");
-		String nome = console.getScanner().next();
+			nome = console.getScanner().next();
 		System.out.println("Número: ");
-		int numero = console.getScanner().nextInt();
+			numero = console.getScanner().nextInt();
 		System.out.println("Cep: ");
-		String cep = console.getScanner().next();
+			cep = console.getScanner().next();
+		} catch (Exception e) {
+			System.out.println("Valor inválido...");
+			console.getScanner().next();
+			return null;
+		}
 		
 		return new Posicao(latitude, longitude, nome, numero, cep);
+	}
+	
+	public static Calendar definirData(Console console) {
+		Calendar calendar = Calendar.getInstance();
+		try {
+			calendar.set(console.getScanner().nextInt(), 
+						console.getScanner().nextInt()-1, 
+						console.getScanner().nextInt(), 
+						console.getScanner().nextInt(), 
+						console.getScanner().nextInt(), 
+						00);
+		} catch (Exception e) {
+			System.out.println("Data inválida...");
+			console.getScanner().next();
+			return null;
+		}
+		return calendar;
+	}
+	
+	public static int definirPassageiros(Console console) {
+		int numeroDePassageiros;
+		try {
+			numeroDePassageiros = console.getScanner().nextInt();
+			if (numeroDePassageiros < 1 || numeroDePassageiros > 4) System.out.println("Quantidade inválida...");
+		} catch (Exception e) {
+			System.out.println("Quantidade inválida...");
+			console.getScanner().next();
+			return -1;
+		}
+		return numeroDePassageiros;
+	}
+	
+	public static int selecionarSentido(Console console) {
+		int sentido;
+		try {
+			sentido = console.getScanner().nextInt();
+			if (sentido != 1 && sentido != 2) System.out.println("Sentido inválido...");
+		} catch (Exception e) {
+			System.out.println("Sentido inválido...");
+			console.getScanner().next();
+			return -1;
+		}
+		return sentido;
+	}
+	
+	public static Carona selecionarCarona(Console console) {
+		try {
+			int id = console.getScanner().nextInt();
+			for (Carona carona : Auxiliar.caronasAtivas) {
+				if (carona.getID() == id) {
+					System.out.println("Registro de participação efetuado com sucesso!");
+					return carona;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("ID inválida...");
+			console.getScanner().next();
+			return null;
+		}
+		System.out.println("ID inválida...");
+		return null;
 	}
 }

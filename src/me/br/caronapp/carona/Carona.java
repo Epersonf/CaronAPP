@@ -13,15 +13,14 @@ import me.br.caronapp.carona.excecoes.*;
 
 public class Carona implements Serializable {
 	
-	 // ABERTO: Aceita guests.
-	 // AGUARDANDO, FECHADO e FINALIZADO: Não aceita guests.
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public enum Estado {ABERTO, AGUARDANDO, FECHADO, FINALIZADO};
+	private static int serial = 0;
+	
+	public enum Estado {ABERTO, AGUARDANDO, FECHADO, FINALIZADO};	// ABERTO: Aceita guests.
+	 																// AGUARDANDO, FECHADO e FINALIZADO: Não aceita guests.
 	
 	private Usuario host;
 	private ArrayList<Usuario> guests = new ArrayList<Usuario>();
@@ -30,6 +29,8 @@ public class Carona implements Serializable {
 	private Rota rota;
 	private Estado estado;
 	
+	private int id;
+	
 	public Carona(Usuario host, int maximoGuests, Calendar dataHora, Rota rota) {
 		super();
 		this.host = host;
@@ -37,13 +38,21 @@ public class Carona implements Serializable {
 		this.dataHora = dataHora;
 		this.rota = rota;
 		this.estado = Estado.ABERTO;
+		
+		serial++;
+		this.id = serial;
 	}
 	
 	public void adicionaPassageiro(Usuario user) throws VagasExcedidasException {
-		if (getVagasPreenchidas() < maximoGuests) {
-			guests.add(user);
-		} else {
-			throw new VagasExcedidasException();
+		if (estado == Estado.ABERTO) {
+			if (getVagasPreenchidas() < maximoGuests) {
+				guests.add(user);
+				if (getVagasPreenchidas() == maximoGuests) {
+					setEstado(Estado.FECHADO);
+				}
+			} else {
+				throw new VagasExcedidasException();
+			}
 		}
 	}
 	
@@ -99,9 +108,11 @@ public class Carona implements Serializable {
 	}
 	
 	public void setEstado(Estado estado) {
-		
-		//TODO: alterar restrições.
 		this.estado = estado;
+	}
+	
+	public int getID() {
+		return id;
 	}
 	
 }

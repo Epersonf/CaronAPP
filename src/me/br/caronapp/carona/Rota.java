@@ -1,10 +1,17 @@
 package me.br.caronapp.carona;
 
+import java.io.Serializable;
+
 /*
  * Author: Sérgio Ricardo
  */
 
-public class Rota {
+public class Rota implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public enum Sentido {IDA, VOLTA};
 	

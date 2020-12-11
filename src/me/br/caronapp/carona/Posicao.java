@@ -1,18 +1,25 @@
 package me.br.caronapp.carona;
 
+import java.io.Serializable;
+
 /*
  * Author: Sérgio Ricardo
  */
 
-public class Posicao {
+public class Posicao implements Serializable {
 
-	private float latitude;
-	private float longitude;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private double latitude;
+	private double longitude;
 	private String nomeRua;
 	private int numero;
 	private String cep;
 	
-	public Posicao(float latitude, float longitude, String nomeRua, int numero, String cep) {
+	public Posicao(double latitude, double longitude, String nomeRua, int numero, String cep) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.nomeRua = nomeRua;
@@ -20,16 +27,16 @@ public class Posicao {
 		this.cep = cep;
 	}
 	
-	public Posicao(float latitude, float longitude) {
+	public Posicao(double latitude, double longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
@@ -45,11 +52,11 @@ public class Posicao {
 		return cep;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
@@ -63,6 +70,10 @@ public class Posicao {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public PontosDeEncontro getPontoDeEncontro() {
+		return null;
 	}
 
 	
