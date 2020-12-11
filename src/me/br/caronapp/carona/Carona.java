@@ -9,6 +9,7 @@ import me.br.caronapp.carona.excecoes.*;
 
 /*
  * Author: Sérgio Ricardo
+ * Modificado por Eperson Filho
  */
 
 public class Carona implements Serializable {
@@ -50,6 +51,7 @@ public class Carona implements Serializable {
 				if (getVagasPreenchidas() == maximoGuests) {
 					setEstado(Estado.FECHADO);
 				}
+				user.addCarona(this);
 			} else {
 				throw new VagasExcedidasException();
 			}
@@ -58,6 +60,8 @@ public class Carona implements Serializable {
 	
 	public void removePassageiro(Usuario user) throws UsuarioNaoEncontradoException {
 		if (!guests.remove(user)) throw new UsuarioNaoEncontradoException();
+		else
+			user.cancelaCarona(this);
 	}
 	
 	public void removePassageiro(String username) throws UsuarioNaoEncontradoException {
@@ -109,6 +113,14 @@ public class Carona implements Serializable {
 	
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+		if (this.estado.equals(Estado.FINALIZADO))
+			this.finaliza();
+	}
+	
+	private void finaliza() {
+		host.finalizaCarona(this);
+		for (int i = 0; i < guests.size(); i++)
+			guests.get(i).finalizaCarona(this);
 	}
 	
 	public int getID() {

@@ -18,6 +18,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	private int avaliacoes;
 	private boolean adm;
 	private ArrayList<Carona> caronas;
+	private ArrayList<Carona> historico;
 
 	public Usuario(String username, String name, String cpf, String senha) {
 		this.username = username;
@@ -27,6 +28,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		this.stars = 10;
 		this.avaliacoes = 0;
 		this.caronas = new ArrayList<Carona>();
+		this.historico = new ArrayList<Carona>();
 	}
 	
 	public boolean podeLogar(String username, String senha) {
@@ -92,7 +94,20 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 		caronas.add(c);
 	}
 	
-	public  void removeCarona(Carona c) {
+	public  void cancelaCarona(Carona c) {
 		caronas.remove(c);
+	}
+	
+	public void finalizaCarona(Carona c) {
+		if (!caronas.remove(c)) return;
+		historico.add(c);
+	}
+	
+	public ArrayList<Carona> getCaronas() {
+		return this.caronas;
+	}
+	
+	public ArrayList<Carona> getHistorico() {
+		return this.historico;
 	}
 }
