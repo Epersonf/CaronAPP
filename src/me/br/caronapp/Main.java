@@ -22,6 +22,7 @@ public class Main {
 		
 		while(console.draw()) {
 			System.out.println("---------------------");
+			storage.salva(Auxiliar.usuarios, Auxiliar.caronasAtivas);
 		}
 		
 		updater.stopThread();
