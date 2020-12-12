@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import me.br.caronapp.usuario.Usuario;
-import me.br.caronapp.Auxiliar;
 import me.br.caronapp.carona.Rota.Sentido;
 import me.br.caronapp.carona.excecoes.*;
 
@@ -54,9 +53,6 @@ public class Carona implements Serializable {
 		
 		if (getVagasPreenchidas() < maximoGuests) {
 			guests.add(user);
-			if (getVagasPreenchidas() == maximoGuests) {
-				setEstado(Estado.FECHADO);
-			}
 			user.addCarona(this);
 		} else {
 			throw new VagasExcedidasException();
