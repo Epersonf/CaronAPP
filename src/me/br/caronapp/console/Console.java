@@ -2,6 +2,7 @@ package me.br.caronapp.console;
 
 import java.util.Scanner;
 
+import me.br.caronapp.console.util.CaronaManager;
 import me.br.caronapp.console.util.HostJoin;
 import me.br.caronapp.console.util.ListarCaronas;
 import me.br.caronapp.console.util.Lobby;
@@ -64,6 +65,9 @@ public class Console {
 			break;
 		case ENTRAR_CARONA:
 			HostJoin.join(this);
+			break;
+		case VER_CORRIDAS:
+			CaronaManager.verCorridas(this);
 			break;
 		case DESLOGAR:
 			this.logout();

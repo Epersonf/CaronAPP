@@ -47,6 +47,11 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	
 	/* GETTERS AND SETTERS */
 	
+	public Carona getPeloId(int id) {
+		for (Carona c : this.caronas) if (c.getID() == id) return c;
+		return null;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
