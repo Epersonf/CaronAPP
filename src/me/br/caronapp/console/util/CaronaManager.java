@@ -8,6 +8,11 @@ import me.br.caronapp.carona.excecoes.UsuarioNaoEncontradoException;
 import me.br.caronapp.console.Console;
 import me.br.caronapp.console.Console.Stage;
 
+/*
+ * Implementado por Eperson Cardoso Mayrink Xavier Filho
+ * Modificado por: Sergio Ricardo
+ * */
+
 public class CaronaManager {
 	public static void verCorridas(Console console) {
 		ArrayList<Carona> caronas = console.getUser().getCaronas();
