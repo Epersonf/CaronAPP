@@ -8,6 +8,7 @@ import me.br.caronapp.carona.Carona;
 import me.br.caronapp.carona.PontosDeEncontro;
 import me.br.caronapp.carona.Posicao;
 import me.br.caronapp.carona.Rota;
+import me.br.caronapp.carona.excecoes.VagasExcedidasException;
 import me.br.caronapp.console.Console;
 import me.br.caronapp.console.Console.Stage;
 
@@ -57,11 +58,21 @@ public class HostJoin {
 	}
 	
 	public static void join(Console console) {
-		Carona carona;
+		Carona carona = null;
 		if(ListarCaronas.draw(console)) {
 			do {
 				System.out.println("Entre com a ID da carona que deseja participar:");
 				carona = selecionarCarona(console);
+				try {
+					if(carona.adicionaPassageiro(console.getUser())) {
+						System.out.println("Registro de participação efetuado com sucesso!");
+					} else {
+						System.out.println("Falha.");
+					}
+					
+				} catch (VagasExcedidasException e) {
+					System.out.println("Não há vagas disponíveis nessa carona...");
+				}
 			} while (carona == null);
 		}
 		console.setStage(Stage.LOBBY);
@@ -74,7 +85,7 @@ public class HostJoin {
 			}
 			System.out.println("-----------\nDigite o id nome do campus:");
 			return new Campus(PontosDeEncontro.values()[console.getScanner().nextInt()]);
-		} catch (IndexOutOfBoundsException e) {
+		} catch (Exception e) {
 			System.out.println("Id invalido...");
 			console.setStage(Stage.LOBBY);
 			console.getScanner().next();
@@ -157,7 +168,6 @@ public class HostJoin {
 			int id = console.getScanner().nextInt();
 			for (Carona carona : Auxiliar.caronasAtivas) {
 				if (carona.getID() == id) {
-					System.out.println("Registro de participação efetuado com sucesso!");
 					return carona;
 				}
 			}

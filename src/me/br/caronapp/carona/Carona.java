@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import me.br.caronapp.usuario.Usuario;
+import me.br.caronapp.Auxiliar;
+import me.br.caronapp.carona.Rota.Sentido;
 import me.br.caronapp.carona.excecoes.*;
 
 /*
@@ -42,20 +44,25 @@ public class Carona implements Serializable {
 		
 		serial++;
 		this.id = serial;
+		
+		this.host.addCarona(this);
 	}
 	
-	public void adicionaPassageiro(Usuario user) throws VagasExcedidasException {
-		if (estado == Estado.ABERTO) {
-			if (getVagasPreenchidas() < maximoGuests) {
-				guests.add(user);
-				if (getVagasPreenchidas() == maximoGuests) {
-					setEstado(Estado.FECHADO);
-				}
-				user.addCarona(this);
-			} else {
-				throw new VagasExcedidasException();
+	public boolean adicionaPassageiro(Usuario user) throws VagasExcedidasException {
+		if (estaNaCorrida(user)) return false;
+		if (estado != Estado.ABERTO) return false;
+		
+		if (getVagasPreenchidas() < maximoGuests) {
+			guests.add(user);
+			if (getVagasPreenchidas() == maximoGuests) {
+				setEstado(Estado.FECHADO);
 			}
+			user.addCarona(this);
+		} else {
+			throw new VagasExcedidasException();
 		}
+		
+		return true;
 	}
 	
 	public void removePassageiro(Usuario user) throws UsuarioNaoEncontradoException {
@@ -70,7 +77,31 @@ public class Carona implements Serializable {
 	}
 	
 	public void atualiza() {
-		//TODO: implementar método.
+		long tempoAtual = Calendar.getInstance().getTime().getTime();	
+		long tempoCarona = this.dataHora.getTime().getTime();
+		if(tempoCarona - tempoAtual <= 1800000) {
+			setEstado(Estado.AGUARDANDO);
+		} else if(tempoAtual - tempoCarona >= 21600000) {
+			setEstado(Estado.FINALIZADO);
+		}
+	}
+	
+	public boolean estaNaCorrida(Usuario user) {
+		if (user.equals(this.host)) return true;
+		if (this.guests.contains(user)) return true;
+		return false;
+	}
+	
+	private void finaliza() {
+		host.finalizaCarona(this);
+		for (int i = 0; i < guests.size(); i++)
+			guests.get(i).finalizaCarona(this);
+	}
+	
+	@Override
+	public String toString() {
+		if (getRota().getSentido() == Sentido.IDA) return getRota().getDestino().getPontoDeEncontro().getNome();
+		else return getRota().getOrigem().getPontoDeEncontro().getNome();
 	}
 	
 	// Getters and Setters
@@ -112,19 +143,22 @@ public class Carona implements Serializable {
 	}
 	
 	public void setEstado(Estado estado) {
+		if(this.estado.equals(Estado.FINALIZADO)) return;
 		this.estado = estado;
 		if (this.estado.equals(Estado.FINALIZADO))
 			this.finaliza();
 	}
 	
-	private void finaliza() {
-		host.finalizaCarona(this);
-		for (int i = 0; i < guests.size(); i++)
-			guests.get(i).finalizaCarona(this);
-	}
-	
 	public int getID() {
 		return id;
+	}
+	
+	public static int getSerial() {
+		return serial;
+	}
+	
+	public static void setSerial(int number) {
+		serial = number;
 	}
 	
 }

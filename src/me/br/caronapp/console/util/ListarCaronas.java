@@ -25,12 +25,10 @@ public class ListarCaronas {
 		boolean caronas = false;
 		for (int i = 0; i < Auxiliar.caronasAtivas.size(); i++) {
 			if (Auxiliar.caronasAtivas.get(i).getEstado() == Estado.ABERTO) {
-				if (Auxiliar.caronasAtivas.get(i).getRota().getSentido() != sentido) {
+				if (Auxiliar.caronasAtivas.get(i).getRota().getSentido() == sentido) {
 					System.out.println(Auxiliar.caronasAtivas.get(i).getID() + " "
 										+ Auxiliar.caronasAtivas.get(i).getHost().getName() + " "
-										+ ((Auxiliar.caronasAtivas.get(i).getRota().getSentido() == Sentido.IDA) ?
-										Auxiliar.caronasAtivas.get(i).getRota().getDestino().getPontoDeEncontro().getNome()
-										: Auxiliar.caronasAtivas.get(i).getRota().getOrigem().getPontoDeEncontro().getNome()));
+										+ Auxiliar.caronasAtivas.get(i).toString());
 					caronas = true;
 				}
 			}

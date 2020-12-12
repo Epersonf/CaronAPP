@@ -13,7 +13,7 @@ public class TimeUpdater extends Thread {
 	
 	public void run() {
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 			Auxiliar.updateTime();
 			if (!stop) run();
 		} catch (InterruptedException e) {e.printStackTrace();}

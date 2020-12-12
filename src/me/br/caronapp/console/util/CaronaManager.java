@@ -17,12 +17,14 @@ public class CaronaManager {
 				indexes.add(i);
 				continue;
 			}
-			System.out.println(caronas.get(i).getID() + " - " + caronas.get(i).getRota().getDestino().getNomeRua());
+			System.out.println(caronas.get(i).getID() + " - " 
+								+ caronas.get(i).getHost().getName() + " - " 
+								+ caronas.get(i).toString());
 		}
 		System.out.println("Caronas nas quais voce eh passageiro:");
 		for (int i = 0; i < indexes.size(); i++) {
 			Carona c = caronas.get(indexes.get(i));
-			System.out.println(c.getID() + " - " + c.getRota().getDestino().getNomeRua());
+			System.out.println(c.getID() + " - " + c.getHost().getName() + " - " + c.toString());
 		}
 		
 		System.out.println("Digite um ID de carona: ");
@@ -54,6 +56,7 @@ public class CaronaManager {
 					carona.setEstado(Estado.FINALIZADO);
 				break;
 			default:
+				System.out.println("Sem opções disponíveis...");
 				break;
 			}
 		} else {
@@ -64,6 +67,7 @@ public class CaronaManager {
 					console.getUser().cancelaCarona(carona);
 				break;
 			default:
+				System.out.println("Sem opções disponíveis...");
 				break;
 			}
 		}

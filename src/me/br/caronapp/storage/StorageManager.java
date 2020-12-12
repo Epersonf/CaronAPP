@@ -25,6 +25,7 @@ public class StorageManager implements Storable{
 			FileOutputStream caronasFile = new FileOutputStream("caronas.bin");
 			ObjectOutputStream usuariosOutputStream = new ObjectOutputStream(usuariosFile);
 			ObjectOutputStream caronasOutputStream = new ObjectOutputStream(caronasFile);
+			caronasOutputStream.writeInt(Carona.getSerial());
 			for (Usuario usuario : listaUsuarios) {
 				usuariosOutputStream.writeObject(usuario);
 			}
@@ -57,6 +58,7 @@ public class StorageManager implements Storable{
 				System.out.println(e.getMessage());
 			}
 			try {
+				Carona.setSerial(caronasInputStream.readInt());
 				while(true) {
 					listaCaronas.add((Carona) caronasInputStream.readObject());
 				}

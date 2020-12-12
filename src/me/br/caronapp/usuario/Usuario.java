@@ -95,7 +95,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	}
 	
 	public void addCarona(Carona c) {
-		if (!caronas.contains(c)) return;
+		if (caronas.contains(c)) return;
 		caronas.add(c);
 	}
 	
