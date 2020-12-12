@@ -9,7 +9,9 @@ import me.br.caronapp.console.util.Lobby;
 import me.br.caronapp.console.util.LoginRegistro;
 import me.br.caronapp.usuario.Usuario;
 
-/* Implementado por Eperson Cardoso Mayrink Xavier Filho */
+/* Implementado por Eperson Cardoso Mayrink Xavier Filho
+ * Modificado por Sergio Ricardo
+ *  */
 
 public class Console {
 	
