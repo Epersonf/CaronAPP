@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import me.br.caronapp.carona.Carona;
 import me.br.caronapp.carona.Carona.Estado;
+import me.br.caronapp.carona.excecoes.UsuarioNaoEncontradoException;
 import me.br.caronapp.console.Console;
 import me.br.caronapp.console.Console.Stage;
 
@@ -63,8 +64,12 @@ public class CaronaManager {
 			switch (carona.getEstado()) {
 			case ABERTO:
 				System.out.println("Deseja sair dessa corrida? (1 - sim / 0 - nao)");
-				if (console.getScanner().nextInt() != 0)
-					console.getUser().cancelaCarona(carona);
+				if (console.getScanner().nextInt() == 0) break;
+				try {
+					carona.removePassageiro(console.getUser());
+				} catch (UsuarioNaoEncontradoException e) {
+					e.printStackTrace();
+				}
 				break;
 			default:
 				System.out.println("Sem opções disponíveis...");

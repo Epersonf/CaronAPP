@@ -62,6 +62,7 @@ public class Carona implements Serializable {
 	}
 	
 	public void removePassageiro(Usuario user) throws UsuarioNaoEncontradoException {
+		if (!this.estado.equals(Estado.ABERTO)) return;
 		if (!guests.remove(user)) throw new UsuarioNaoEncontradoException();
 		else
 			user.cancelaCarona(this);

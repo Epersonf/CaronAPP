@@ -42,7 +42,7 @@ public class Usuario implements Comparable<Usuario>, Serializable {
 	}
 	
 	public boolean equals(Usuario o) {
-		return o.getUsername().equalsIgnoreCase(o.getName());
+		return o.getUsername().equalsIgnoreCase(this.getUsername());
 	}
 	
 	/* GETTERS AND SETTERS */
