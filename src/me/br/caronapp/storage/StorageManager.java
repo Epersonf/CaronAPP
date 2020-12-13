@@ -34,6 +34,8 @@ public class StorageManager implements Storable{
 			}
 			usuariosOutputStream.close();
 			caronasOutputStream.close();
+			usuariosFile.close();
+			caronasFile.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
@@ -69,6 +71,8 @@ public class StorageManager implements Storable{
 			}
 			usuariosInputStream.close();
 			caronasInputStream.close();
+			usuariosFile.close();
+			caronasFile.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
